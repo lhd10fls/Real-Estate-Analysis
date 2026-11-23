@@ -1,0 +1,33 @@
+# Python artifacts
+__pycache__/
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# IDE & editor files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+!data/preprocessed/
+!data/preprocessed/*.csv
+.venv
+
+# Local secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Generated files
+*.log
+.ipynb_checkpoints/
+reports/v2/.mplconfig/
+
+# Trained model: regenerate using train_v2.py
+modelling/v2/model.joblib

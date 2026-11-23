@@ -1,0 +1,31 @@
+record_id,area,front_width,n_bedrooms,n_bathrooms,n_floors,city_province,district,property_type,legal,interior,actual,predicted,source,price_band,absolute_error
+batdongsan:001122,293.0,10.0,,,9.0,Hà Nội,Hoàn Kiếm,Nhà mặt phố,Giấy chứng nhận; chưa rõ riêng/chung,Đầy đủ,520.0,178.20893647874504,batdongsan,>30,341.79106352125496
+batdongsan:006868,550.0,,,,10.0,Hồ Chí Minh,Phú Nhuận,Nhà mặt phố,Chưa rõ,Chưa rõ,450.0,215.69290389904785,batdongsan,>30,234.30709610095215
+batdongsan:008046,2000.0,,,,2.0,Hồ Chí Minh,10,Nhà mặt phố,Giấy chứng nhận; chưa rõ riêng/chung,Chưa rõ,350.0,118.597403440467,batdongsan,>30,231.40259655953298
+batdongsan:002390,583.2,,50.0,50.0,12.0,Hồ Chí Minh,3,Nhà mặt phố,Giấy chứng nhận; chưa rõ riêng/chung,Chưa rõ,450.0,223.9370510993758,batdongsan,>30,226.0629489006242
+batdongsan:004741,395.0,,16.0,,5.0,Hà Nội,Tây Hồ,Nhà mặt phố,Giấy chứng nhận; chưa rõ riêng/chung,Chưa rõ,339.0,122.33644413740228,batdongsan,>30,216.66355586259772
+muaban:001146,780.0,,1.0,1.0,,Hà Nội,Cầu Giấy,Nhà mặt phố,Giấy chứng nhận; chưa rõ riêng/chung,Chưa rõ,245.0,35.043837192095765,muaban,>30,209.95616280790424
+batdongsan:002474,2859.5,40.0,,,,Hồ Chí Minh,9,Nhà mặt phố,Giấy chứng nhận; chưa rõ riêng/chung,Chưa rõ,190.0,396.5735023592182,batdongsan,>30,206.5735023592182
+batdongsan:005657,790.0,24.0,7.0,8.0,3.0,Lâm Đồng,Đà Lạt,Biệt thự/liền kề,Giấy chứng nhận; chưa rõ riêng/chung,Đầy đủ,230.0,34.34534125722849,batdongsan,>30,195.65465874277152
+batdongsan:005390,720.0,,,,,Đà Nẵng,Hải Châu,Nhà mặt phố,Giấy chứng nhận; chưa rõ riêng/chung,Chưa rõ,210.0,49.93236075708769,batdongsan,>30,160.06763924291232
+batdongsan:008042,530.0,,,,10.0,Hồ Chí Minh,10,Nhà mặt phố,Giấy chứng nhận; chưa rõ riêng/chung,Chưa rõ,380.0,231.98278147007716,batdongsan,>30,148.01721852992284
+batdongsan:001121,225.0,10.4,,,9.0,Hà Nội,Hai Bà Trưng,Nhà mặt phố,Giấy chứng nhận; chưa rõ riêng/chung,Đầy đủ,285.0,154.39282264880728,batdongsan,>30,130.60717735119272
+batdongsan:007689,163.0,11.0,,,,Hà Nội,Hai Bà Trưng,Nhà mặt phố,Chưa rõ,Chưa rõ,205.0,75.16041058983359,batdongsan,>30,129.8395894101664
+batdongsan:008353,1975.7,,,,,Khánh Hòa,Ninh Hòa,Nhà mặt phố,Giấy chứng nhận; chưa rõ riêng/chung,Chưa rõ,150.0,23.18342054274732,batdongsan,>30,126.81657945725269
+batdongsan:005389,550.0,,,,,Đà Nẵng,Hải Châu,Nhà mặt phố,Giấy chứng nhận; chưa rõ riêng/chung,Chưa rõ,170.0,50.512711239926546,batdongsan,>30,119.48728876007345
+batdongsan:000330,1337.0,8.0,2.0,5.0,1.0,Lâm Đồng,Đà Lạt,Biệt thự/liền kề,Giấy chứng nhận; chưa rõ riêng/chung,Cơ bản,140.0,20.531304017372737,batdongsan,>30,119.46869598262727
+muaban:001230,638.0,,,,,Hà Nội,Tây Hồ,Biệt thự,Giấy chứng nhận; chưa rõ riêng/chung,Chưa rõ,228.22,111.98582652856733,muaban,>30,116.23417347143267
+muaban:000019,500.0,25.0,,,,Hồ Chí Minh,1,Nhà mặt phố,Giấy chứng nhận; chưa rõ riêng/chung,Chưa rõ,2.111,116.70345134075878,muaban,<3,114.59245134075877
+batdongsan:003112,304.7,,20.0,8.0,7.0,Hồ Chí Minh,11,Nhà mặt phố,Giấy chứng nhận; chưa rõ riêng/chung,Chưa rõ,175.0,63.1943333538769,batdongsan,>30,111.8056666461231
+muaban:000097,5564.0,,,,,Hồ Chí Minh,Thủ Đức - Quận Thủ Đức,Nhà mặt phố,Giấy chứng nhận; chưa rõ riêng/chung,Chưa rõ,210.0,105.57899602826872,muaban,>30,104.42100397173128
+batdongsan:006033,519.0,,6.0,6.0,3.0,Hồ Chí Minh,7,Biệt thự/liền kề,Giấy chứng nhận; chưa rõ riêng/chung,Không nội thất,209.0,105.98839650069489,batdongsan,>30,103.01160349930511
+batdongsan:008346,207.9,,,,9.0,Hồ Chí Minh,1,Nhà mặt phố,Giấy chứng nhận; chưa rõ riêng/chung,Chưa rõ,239.0,138.97461988357284,batdongsan,>30,100.02538011642716
+muaban:000217,1707.0,22.0,2.0,1.0,1.0,Hồ Chí Minh,7,Nhà mặt phố,Giấy chứng nhận; chưa rõ riêng/chung,Chưa rõ,150.0,50.04860624438134,muaban,>30,99.95139375561865
+muaban:000790,70.0,4.0,4.0,4.0,3.0,Hồ Chí Minh,Tân Phú,Nhà hẻm/ngõ,Giấy tờ hợp lệ theo tin đăng,Chưa rõ,105.0,7.008007830957956,muaban,>30,97.99199216904205
+batdongsan:000595,637.0,12.0,,,10.0,Thừa Thiên Huế,Huế,Nhà mặt phố,Giấy chứng nhận; chưa rõ riêng/chung,Khác/chưa phân loại,140.0,43.95480153456279,batdongsan,>30,96.04519846543721
+muaban:000568,1054.0,6.3,9.0,7.0,7.0,Hồ Chí Minh,Phú Nhuận,Nhà mặt phố,Giấy chứng nhận; chưa rõ riêng/chung,Chưa rõ,49.5,144.56805656055826,muaban,>30,95.06805656055826
+batdongsan:002561,300.0,15.0,,,3.0,Hồ Chí Minh,2,Nhà mặt phố,Giấy chứng nhận; chưa rõ riêng/chung,Chưa rõ,170.0,79.15601777187997,batdongsan,>30,90.84398222812003
+muaban:001138,268.0,,9.0,9.0,9.0,Hà Nội,Tây Hồ,Nhà mặt phố,Giấy chứng nhận; chưa rõ riêng/chung,Chưa rõ,210.0,119.4626740189287,muaban,>30,90.5373259810713
+batdongsan:000272,234.2,12.8,,,7.0,Hồ Chí Minh,3,Nhà mặt phố,Giấy chứng nhận; chưa rõ riêng/chung,Đầy đủ,185.0,100.50883221897367,batdongsan,>30,84.49116778102633
+batdongsan:002858,1200.0,20.0,11.0,11.0,5.0,Hồ Chí Minh,6,Biệt thự/liền kề,Giấy chứng nhận; chưa rõ riêng/chung,Đầy đủ,300.0,215.92705205659902,batdongsan,>30,84.07294794340098
+batdongsan:007774,75.0,,,,4.0,Hồ Chí Minh,1,Nhà mặt phố,Giấy chứng nhận; chưa rõ riêng/chung,Chưa rõ,115.0,31.472676124186577,batdongsan,>30,83.52732387581342

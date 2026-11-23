@@ -1,0 +1,13 @@
+{
+  "selected": "Random Forest",
+  "criterion": "minimum mean grouped CV MAE, original price scale",
+  "params": {
+    "Ridge": {
+      "regressor__model__alpha": 100.0
+    },
+    "Random Forest": {
+      "regressor__model__max_features": 1.0,
+      "regressor__model__min_samples_leaf": 2
+    }
+  }
+}
