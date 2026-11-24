@@ -13,8 +13,8 @@ ENV/
 Thumbs.db
 desktop.ini
 
-!data/preprocessed/
-!data/preprocessed/*.csv
+!data/processed/
+!data/processed/*.csv
 .venv
 
 # Local secrets
@@ -27,7 +27,7 @@ desktop.ini
 # Generated files
 *.log
 .ipynb_checkpoints/
-reports/v2/.mplconfig/
+reports/.mplconfig/
 
-# Trained model: regenerate using train_v2.py
-modelling/v2/model.joblib
+# Trained model: regenerate using train.py
+modelling/model.joblib
