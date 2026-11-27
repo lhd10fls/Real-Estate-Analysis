@@ -4,13 +4,13 @@
       "input_rows": 8414,
       "exact_duplicates_removed": 1836,
       "remaining_rows": 6578,
-      "sha256": "62980e6e46e142ebac268c7eb192dc3bc55efd856fdbe80e9935f099c8c360d4"
+      "sha256": "1107286e312ee6c4d14f038b16e30e2c92f5a3ece662bc876e803434a143fc0d"
     },
     "muaban": {
       "input_rows": 5414,
       "exact_duplicates_removed": 1819,
       "remaining_rows": 3595,
-      "sha256": "9839975d159499c64bc026cda63301ba5f21bc1bfebe7e7bbf9da8be5fded16f"
+      "sha256": "ee548d0258ad837ef333d2392b0999a6b0f5ed5bfdc039b8ffb9be6110d421ae"
     }
   },
   "canonical_rows": 10173,
@@ -85,6 +85,15 @@
     "Nhà hẻm/ngõ": 1683,
     "Nhà riêng": 1278,
     "Biệt thự": 172
+  },
+  "temporal_summary": {
+    "date_range": "2026-08-01 to 2026-11-25",
+    "month_counts": {
+      "8": 1531,
+      "9": 2580,
+      "10": 3559,
+      "11": 2503
+    }
   },
   "missing_numeric": {
     "price": 449,

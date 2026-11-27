@@ -61,6 +61,16 @@ class ExportTests(unittest.TestCase):
         conflicts = pd.read_csv(OUT/'url_conflicts.csv')
         self.assertFalse(set(all_ids).intersection(conflicts.record_id))
 
+    def test_temporal_features(self):
+        d = pd.read_csv(OUT/'canonical_all.csv', low_memory=False)
+        self.assertTrue('posted_date' in d.columns)
+        self.assertTrue('posting_month' in d.columns)
+        self.assertTrue('day_of_week' in d.columns)
+        self.assertTrue(d.posted_date.notna().all())
+        self.assertTrue(set(d.posting_month.dropna()).issubset({8, 9, 10, 11}))
+        self.assertTrue(d.posted_date.dropna().min() >= '2026-08-01')
+        self.assertTrue(d.posted_date.dropna().max() <= '2026-11-25')
+
 
 if __name__ == '__main__':
     unittest.main()
