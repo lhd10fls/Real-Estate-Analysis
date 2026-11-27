@@ -1,71 +1,130 @@
-```markdown
-This repository contains a small end-to-end real-estate analysis pipeline: data scraping, preprocessing, exploratory analysis, and modelling. A Streamlit frontend is included to explore the preprocessed dataset and run predictions with saved models.
+# Vietnamese Real Estate Analysis & Price Prediction
+**Course:** IT4142E – Introduction to Data Science | **School:** SoICT, HUST
 
-Contents
-- `data/raw/` — raw scraped CSVs
-- `data/preprocessed/` — preprocessed CSVs and the integrated dataset
-- `data_preprocessed/` — preprocessing notebooks and `integrate.py`
-- `data_scraping/` — scraper (`scraper.py`) and helpers (`utils.py`)
-- `EDA_and_Data_Visualization/` — EDA notebook
-- `modelling/` — modelling notebooks and saved model artifact (`model_gridsearch.pkl`)
-- `streamlit_app.py` — Streamlit frontend for interactive exploration and predictions
-- `requirements.txt` — Python dependencies
+An end-to-end Data Science pipeline to crawl, standardize, model, and predict residential real estate prices across Vietnam with zero data leakage and reproducible grouped evaluation.
 
-## Quick start
+---
 
-1. Create and activate a Python virtual environment (macOS / zsh):
+## 1. Project Overview & Pipeline Highlights
 
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install --upgrade pip
+- **Multi-Source Crawling:** Scrapes real estate listings across 50+ Vietnamese provinces from `batdongsan.com.vn` (Selenium with anti-ban mechanisms) and `muaban.net`.
+- **Auditable Preprocessing:** Reconstructs canonical datasets from raw CSVs with full traceability, deduplication tracking, URL conflict isolation, and strict domain validation.
+- **Zero Data Leakage:** Eliminates target-derived features (`price_per_m2` banned from $X$), fits imputers/scalers strictly within cross-validation training folds.
+- **Grouped Cross-Validation:** Clusters identical/similar listings by spatial-structural fingerprints (`candidate_group_id`) to ensure listings of the same property never leak across train and test folds.
+- **End-to-End Scikit-Learn Pipeline:** Features `ColumnTransformer`, `SimpleImputer(add_indicator=True)` capturing MNAR (Missing Not At Random) patterns, `OneHotEncoder(handle_unknown='ignore')`, and `TransformedTargetRegressor` for automatic log-scale training and original-scale inference.
+- **Interactive Streamlit Application:** Provides an interactive 4-tab dashboard for data inspection, EDA distributions, model evaluation metrics, and single/batch valuation.
+
+---
+
+## 2. Directory Structure
+
+```text
+Real-Estate-Analysis/
+├── data/
+│   ├── raw/                        # Immutable raw scraped listings (batdongsan, muaban)
+│   └── processed/                  # Auditable cleaned datasets, train/test splits & manifests
+│       ├── canonical_all.csv       # Complete canonical dataset (10,173 listings)
+│       ├── X_train.csv, y_train.csv# Clean training set (7,728 listings)
+│       ├── X_test.csv, y_test.csv  # Holdout test set (1,966 listings)
+│       ├── split_manifest.csv      # Candidate group assignments for grouped CV
+│       └── quality_report.json     # Data audit summary, SHA256 hashes & statistics
+├── data_preprocessed/
+│   ├── rebuild_dataset.py          # Deterministic ETL pipeline from raw CSVs
+│   ├── test_rebuild.py             # Unit tests for text parsers & split integrity
+│   └── README.md                   # Preprocessing specifications & data rules
+├── data_scraping/
+│   ├── scraper.py                  # Selenium dynamic crawler for batdongsan.com.vn
+│   └── utils.py                    # Crawler utility functions
+├── EDA_and_Data_Visualization/
+│   └── eda_data_visualize.ipynb    # Exploratory Data Analysis notebook
+├── modelling/
+│   ├── model.joblib                # Serialized best Scikit-learn Pipeline artifact
+│   ├── metadata.json               # Model specs, feature names, package versions & data hashes
+│   └── selection.json              # Automated CV selection audit log
+├── reports/
+│   ├── metrics.csv                 # Comparative metrics (MAE, RMSE, R²) on original price scale
+│   ├── cv_folds.csv                # 5-fold grouped split mapping
+│   ├── segment_errors.csv          # Error breakdown by housing category, city & price band
+│   ├── largest_errors.csv          # Top 30 worst predictions for diagnostic analysis
+│   ├── test_diagnostics.png        # Actual vs. Predicted & Residual scatter plots
+│   └── KET_QUA_THUC_NGHIEM.md      # Detailed experimental results & empirical findings
+├── tests/
+│   ├── test_crawler_csv.py         # Tests for CSV writing integrity & schema consistency
+│   ├── test_pipeline.py            # Tests for input validation, train-only imputation & artifact parity
+│   └── test_streamlit.py           # Streamlit app automated UI tests
+├── ml_pipeline.py                  # Scikit-learn Pipeline architecture & preprocessing definition
+├── train.py                        # Model training, grouped GridSearchCV & holdout evaluation
+├── run_pipeline.py                 # One-click master script to run ETL, train & all tests
+├── streamlit_app.py                # Streamlit interactive web application
+└── requirements.txt                # Pinned dependency requirements
 ```
 
-2. Install dependencies:
+---
 
+## 3. Quickstart & Installation
+
+### Step 1: Environment Setup
 ```bash
+# Clone the repository
+git clone git@github.com:lhd10fls/Real-Estate-Analysis.git
+cd Real-Estate-Analysis
+
+# Create and activate virtual environment
+python3 -m venv .venv
+source .venv/bin/activate       # On Windows: .venv\Scripts\activate
+
+# Install dependencies
 pip install -r requirements.txt
 ```
 
-3. Ensure the preprocessed dataset exists. The Streamlit app expects `data/preprocessed/full_preprocessed.csv`.
-
+### Step 2: Run Master Pipeline (One Command)
+To rebuild the dataset from raw files, run data tests, train all models with GroupKFold CV, evaluate holdout metrics, and execute all tests:
 ```bash
-ls -l data/preprocessed/full_preprocessed.csv
+python run_pipeline.py
 ```
 
-If the file is missing but per-source preprocessed files exist (`data/preprocessed/*_preprocessed.csv`), you can integrate them:
-
-```bash
-python data_preprocessed/integrate.py
-```
-
-4. Run the Streamlit app:
-
+### Step 3: Launch Interactive Web Application
 ```bash
 streamlit run streamlit_app.py
 ```
+The app features:
+1. **Dữ liệu (Data):** Filterable table of verified listings with CSV export.
+2. **Phân tích (EDA):** Interactive price distributions and property type breakdowns.
+3. **Đánh giá (Evaluation):** Holdout performance metrics, residual plots, and segment error analysis.
+4. **Dự đoán (Predict):** Real-time single-property valuation and batch prediction on filtered datasets.
 
-Open the URL printed by Streamlit (usually `http://localhost:8501`) in your browser.
+---
 
-## What the Streamlit app provides
-- Data Explorer: filters (city, property type, area, price), map view, table and CSV download.
-- EDA: histograms and distribution plots for price/price_per_m2.
-- Modelling panel (sidebar): select a saved model from `modelling/`, view basic info (best params / scores), run batch predictions on the currently-filtered dataset, download predictions, and perform single-record predictions.
-- Feature importance visualization for compatible models.
+## 4. Individual Pipeline Steps
 
-## Model artifacts
-- The repo contains `modelling/model_gridsearch.pkl` — this project saved a dictionary with keys like `best_model`, `best_params`, and `scores`. The Streamlit app handles this format and extracts the inner estimator for prediction.
-- Best practice: when training, save a scikit-learn `Pipeline` that includes preprocessing and the estimator. This makes it safe to call `pipeline.predict(X_raw)` from the app without reimplementing transformations.
+If you prefer executing stages individually:
 
-## Notes about predictions
-- The model may have been trained on a transformed target (e.g., `log_price`). The app provides a checkbox `Model predicts log(price) -> inverse exp()` — enable it if your model predicts log(price) so the app will exponentiate outputs before showing prices.
-- The app attempts to infer the feature names expected by the model. If features are missing in the current dataset, the app will auto-fill those columns with sensible defaults and show a warning listing which features were added. For production use, prefer saving a Pipeline so preprocessing is consistent.
+```bash
+# 1. Rebuild datasets from raw data
+python data_preprocessed/rebuild_dataset.py
 
-## Running the scraper
-- `data_scraping/scraper.py` uses Selenium and `undetected_chromedriver` to scrape `batdongsan.com.vn`. Scraping requires a compatible Chrome and the `undetected-chromedriver` package; consult the notebook and `scraper.py` for configuration constants (page ranges, delays). Be mindful of site terms-of-service and polite scraping practices.
+# 2. Run data parsing tests
+python -m unittest discover -s data_preprocessed -p test_rebuild.py -v
 
-## Troubleshooting
-- If Streamlit reports missing dataset: verify `DATA_PATH` in `streamlit_app.py` or regenerate preprocessed files.
-- If prediction fails due to mismatched feature names: ensure your saved model's expected features are present in the preprocessed dataset or save a Pipeline that includes feature engineering.
-- If unpickling a model warns about scikit-learn versions: train and save models with the same scikit-learn version you plan to load with.
+# 3. Train models and generate reports
+python train.py
 
+# 4. Run full test suite
+python -m unittest discover -s tests -v
+```
+
+---
+
+## 5. Experimental Results (Evaluated on Raw Price Scale - Billion VND)
+
+All models are evaluated on the held-out test set ($N=1{,}966$) across the original currency scale (Billion VND):
+
+| Model | 5-Fold CV MAE (tỷ VND) | Test MAE (tỷ VND) | Test RMSE (tỷ VND) | Test $R^2$ (Giá gốc) | Median Absolute Error (tỷ) |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| **Baseline Median** | $15.00 \pm 0.87$ | $15.47$ | $39.87$ | $-0.090$ | $5.525$ |
+| **Ridge Regression** | $20.40 \pm 11.02$ | $13.43$ | $94.41$ | $-5.112$ | $2.759$ |
+| **Random Forest (Selected)** | $\mathbf{7.43 \pm 0.52}$ | $\mathbf{7.06}$ | $\mathbf{21.92}$ | $\mathbf{0.670}$ | $\mathbf{1.713}$ |
+
+### Key Findings:
+- **Random Forest** achieved the lowest CV MAE and was automatically selected as the deployment model. It reduces MAE by **$54.4\%$** compared to the baseline, with a median error of only **$1.71$ billion VND**.
+- **Segment Breakdown:** Prediction accuracy is highest on **Apartments** (Median Error: $0.78$B) and **Alley Houses** (Median Error: $1.01$B), while luxury villas and street-front properties exhibit higher variance due to extreme right-skewed valuations.

@@ -1,0 +1,51 @@
+{
+  "name": "Random Forest",
+  "features": [
+    "area",
+    "front_width",
+    "n_bedrooms",
+    "n_bathrooms",
+    "n_floors",
+    "city_province",
+    "district",
+    "property_type",
+    "legal",
+    "interior"
+  ],
+  "target": "asking_price_billion_vnd",
+  "returns_original_price": true,
+  "baseline": false,
+  "params": {
+    "regressor__model__max_features": 1.0,
+    "regressor__model__min_samples_leaf": 2
+  },
+  "versions": {
+    "pandas": "2.3.3",
+    "numpy": "2.2.6",
+    "scikit-learn": "1.7.2",
+    "joblib": "1.6.0",
+    "streamlit": "1.65.0",
+    "plotly": "7.1.0",
+    "matplotlib": "3.10.9"
+  },
+  "dataset_hashes": {
+    "mapping_district.csv": "c75305980ff47d62941548b0d53a058955554d231dc8edf98e572229dd33210e",
+    "extreme_values_review.csv": "9449567cadbc56c4129c8dd32c10cec87e045093cb6cc7028c4368db5855f9bb",
+    "split_manifest.csv": "f192b9b389e513e40c403b65e1855ddaf0caadf16d9d04bc87b946258aa67781",
+    "mapping_city_province.csv": "78285ff5bcbff2fcade088f3eabdb55546bd262073689a3894203b05dfe4c9a6",
+    "excluded_from_model.csv": "382557cac5f117a452d9ad44d773cb16268ef52a0a67504c0edf07ad7de16131",
+    "parse_issues.csv": "8fc37964d1705f82f62e033e82178d63c7f57bcc4f98d27e8351eb7da5183e60",
+    "muaban_canonical.csv": "70201d6697af946caf5d4d7571acca7f7c65e9fdc8fef5712c49968eefe167cc",
+    "X_train.csv": "84ad83e4c1b77b64ff1b22dc3e0aa11655010e750071ca0a017552e84e9adda0",
+    "duplicate_candidates.csv": "a0ef09bdd4911e11d8cc4c847fa236fa931d03e2a0a07602267308df6c656eef",
+    "missingness_by_source.csv": "7d9f6416bb5af549818bb8930a437113700e74a0531af53f3387b2aee297f892",
+    "exact_duplicates_removed.csv": "720e6e149ae202771569e56ec5e0142c58cbcd5594ce83be69317ea07da7f3f1",
+    "url_conflicts.csv": "d349171f85cd0e77064179b167a6b1187d8b076aa7a06354054df976d0a266fb",
+    "mapping_property_type.csv": "70a96f039d6aab3810437e49a8e2eab35410fffd42034fcc1962dbfc504d8ddb",
+    "y_train.csv": "86855f07d8e6e809a588cbfd101a46eb2fe1a5401963391b01ece8d235e205df",
+    "batdongsan_canonical.csv": "4734d57762c73ab71b15222b46c5009939b4d38c8d2ab7a082c45c7d14710509",
+    "y_test.csv": "d7145ab0a1bae906152d95252d2544c66b6b9cc3b22af710fe9de24745851f4c",
+    "X_test.csv": "64bd5a4883281875b7972bf1c471740bd569381d04470ee8189fc73b3b97c4df",
+    "canonical_all.csv": "1f6289c6efe99a073a620b33886752ea0b84fef8dd4cb6fa7f34111f6a6498e0"
+  }
+}
