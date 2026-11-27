@@ -37,27 +37,52 @@ st.caption('Giá chào bán · Đơn vị: tỷ VND · Dữ liệu lịch sử t
 cities = sorted(d.city_province.dropna().unique())
 selected_city = st.sidebar.multiselect('Tỉnh / thành phố', cities)
 selected_type = st.sidebar.multiselect('Loại nhà', sorted(d.property_type.dropna().unique()))
+month_labels = {8: 'Tháng 8/2026', 9: 'Tháng 9/2026', 10: 'Tháng 10/2026', 11: 'Tháng 11/2026'}
+selected_months = st.sidebar.multiselect('Tháng đăng tin', list(month_labels.keys()), format_func=lambda m: month_labels.get(m, str(m)))
 filtered = d.copy()
 if selected_city:
     filtered = filtered[filtered.city_province.isin(selected_city)]
 if selected_type:
     filtered = filtered[filtered.property_type.isin(selected_type)]
+if selected_months:
+    filtered = filtered[filtered.posting_month.isin(selected_months)]
 a,b,c = st.columns(3)
 a.metric('Tin đăng',f'{len(filtered):,}')
 b.metric('Giá trung vị (tỷ VND)',f'{filtered.price.median():.2f}' if filtered.price.notna().any() else '—')
 c.metric('Diện tích trung vị (m²)',f'{filtered.area.median():.1f}' if filtered.area.notna().any() else '—')
 tab_data, tab_eda, tab_model, tab_predict = st.tabs(['Dữ liệu','Phân tích','Đánh giá','Dự đoán'])
 with tab_data:
-    st.dataframe(filtered[['record_id','source','city_province','district','property_type','area','price','price_status','eligible_for_model']], hide_index=True)
+    cols_show = ['record_id','source','posted_date','city_province','district','property_type','area','price','price_status','eligible_for_model']
+    st.dataframe(filtered[[c for c in cols_show if c in filtered.columns]], hide_index=True)
     st.download_button('Tải dữ liệu lọc', filtered.to_csv(index=False).encode('utf-8-sig'),'listings_filtered.csv','text/csv')
     st.dataframe(pd.read_csv(DATA/'missingness_by_source.csv'), hide_index=True)
 with tab_eda:
     if filtered.empty:
         st.info('Không có tin phù hợp bộ lọc.')
     else:
+        st.subheader('Phân bố Giá & Loại hình BĐS')
         st.plotly_chart(px.histogram(filtered, x='price', nbins=60, labels={'price':'Giá chào bán (tỷ VND)'}), width='stretch')
         counts=filtered.groupby('property_type').size().rename('Số tin').reset_index()
         st.plotly_chart(px.bar(counts,x='property_type',y='Số tin',labels={'property_type':'Loại nhà'}),width='stretch')
+
+        st.subheader('Xu hướng Thời gian (Aug - Nov 2026)')
+        col_t1, col_t2 = st.columns(2)
+        with col_t1:
+            month_counts = filtered.groupby('posting_month').size().rename('Số tin').reset_index()
+            month_counts['Tháng'] = month_counts['posting_month'].map(month_labels)
+            st.plotly_chart(px.bar(month_counts, x='Tháng', y='Số tin', title='Khối lượng tin đăng theo tháng', color='Tháng'), width='stretch')
+        with col_t2:
+            price_trend = filtered.groupby('posting_month')['price'].median().rename('Giá trung vị (tỷ)').reset_index()
+            price_trend['Tháng'] = price_trend['posting_month'].map(month_labels)
+            st.plotly_chart(px.line(price_trend, x='Tháng', y='Giá trung vị (tỷ)', title='Biến động giá trung vị theo tháng', markers=True), width='stretch')
+
+        dow_order = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+        dow_vn = {'Monday':'Thứ 2', 'Tuesday':'Thứ 3', 'Wednesday':'Thứ 4', 'Thursday':'Thứ 5', 'Friday':'Thứ 6', 'Saturday':'Thứ 7', 'Sunday':'Chủ Nhật'}
+        if 'day_of_week' in filtered.columns and filtered['day_of_week'].notna().any():
+            dow_df = filtered.groupby('day_of_week').size().reindex(dow_order).dropna().rename('Số tin').reset_index()
+            dow_df['Thứ'] = dow_df['day_of_week'].map(dow_vn)
+            st.plotly_chart(px.bar(dow_df, x='Thứ', y='Số tin', title='Mật độ đăng tin theo ngày trong tuần', color='Thứ'), width='stretch')
+
         coords=filtered[['latitude','longitude']].dropna()
         if not coords.empty:
             st.caption('Tọa độ từ nguồn tin, chưa xác minh vị trí thực tế. Muaban chưa bổ sung tọa độ.')

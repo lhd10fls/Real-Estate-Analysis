@@ -175,6 +175,10 @@ def build_source(filename, source):
     out['url'] = get('url').map(clean)
     out['title'] = get('title').map(clean)
     out['date_of_posting_raw'] = get('date_of_posting')
+    parsed_date = pd.to_datetime(get('date_of_posting'), format='%d/%m/%Y', errors='coerce')
+    out['posted_date'] = parsed_date.dt.strftime('%Y-%m-%d')
+    out['posting_month'] = parsed_date.dt.month
+    out['day_of_week'] = parsed_date.dt.day_name()
     out['collected_at'] = None
     out['address'] = get('location_details' if source == 'batdongsan' else 'address').map(clean)
     if source == 'batdongsan':
@@ -314,6 +318,10 @@ def main():
              'parse_issue_count': len(bi+mi), 'extreme_review_rows': int(d.review_extreme.sum()),
              'city_counts': d.city_province.value_counts().to_dict(),
              'property_counts': d.property_type.value_counts().to_dict(),
+             'temporal_summary': {
+                 'date_range': f"{d['posted_date'].dropna().min()} to {d['posted_date'].dropna().max()}",
+                 'month_counts': {int(k): int(v) for k, v in d['posting_month'].dropna().value_counts().sort_index().items()}
+             },
              'missing_numeric': d[['price','area','front_width','n_bedrooms','n_bathrooms','n_floors']].isna().sum().to_dict(),
              'model_features': FEATURES,
              'limitations': ['Muaban provenance and numeric price unit require provider confirmation.',
